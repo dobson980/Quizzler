@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     var questionNumber : Int = 0
     var score : Int = 0
     
-    
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
@@ -26,6 +25,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(nextQuestion), name: NSNotification.Name("modalDismiss"), object: nil)
         importQuestions()
         nextQuestion()
         
@@ -44,9 +44,9 @@ class ViewController: UIViewController {
 
         }
 
-        checkAnswer()
         questionNumber += 1
-        nextQuestion()
+        checkAnswer()
+        
         
     }
     
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
     }
     
 
-    func nextQuestion() {
+    @objc func nextQuestion() {
         
         if questionNumber <= (allQuestions.questionList.count - 1) {
             
@@ -68,25 +68,16 @@ class ViewController: UIViewController {
             
         } else {
             
-            let alert = UIAlertController(title: "Awesome", message: "You've finished all the questions, do you want to start over", preferredStyle: .alert)
-            
-            let restartAction = UIAlertAction(title: "Restart", style: .default, handler: { (UIAlertAction) in
-                self.startOver()
-                
-            })
-            
-            alert.addAction(restartAction)
-            present(alert, animated: true, completion: nil)
+            restartQuizAlert()
             
         }
-        
         
     }
     
     
     func checkAnswer() {
         
-        let correctAnswer = allQuestions.questionList[questionNumber].answer
+        let correctAnswer = allQuestions.questionList[questionNumber - 1].answer
         
         if correctAnswer == pickedAnswer {
             
@@ -117,25 +108,41 @@ class ViewController: UIViewController {
     
     }
     
+    func restartQuizAlert() {
+     
+        let alert = UIAlertController(title: "Awesome", message: "You've finished all the questions, do you want to start over", preferredStyle: .alert)
+        
+        let restartAction = UIAlertAction(title: "Restart", style: .default, handler: { (UIAlertAction) in
+            self.startOver()
+            
+        })
+        
+        alert.addAction(restartAction)
+        present(alert, animated: true, completion: nil)
+        
+        
+    }
+    
     func presentModal() {
-    
+
         performSegue(withIdentifier: "answerModalDetails", sender: self)
-    
+
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if (segue.identifier == "answerModalDetails") {
-            
+
             let modal : ModalAnswerViewController = (segue.destination as? ModalAnswerViewController)!
             modal.answerImageStore = answerValidate.image
             modal.answerLabelStore = answerValidate.label
-            
+
         } else {
             fatalError("Did not find segue")
         }
-        
+
     }
+    
     
 
     

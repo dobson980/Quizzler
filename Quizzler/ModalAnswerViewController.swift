@@ -12,6 +12,7 @@ class ModalAnswerViewController: UIViewController {
     
     @IBOutlet weak var answerImage: UIImageView!
     @IBOutlet weak var answerLabel: UILabel!
+
     var answerLabelStore: String?
     var answerImageStore: UIImage?
     
@@ -30,6 +31,8 @@ class ModalAnswerViewController: UIViewController {
     @IBAction func dismissButton(_ sender: Any) {
         
         dismiss(animated: true, completion: nil)
+        NotificationCenter.default.post(name: Notification.Name(rawValue: "modalDismiss"), object: self)
+
         
     }
     

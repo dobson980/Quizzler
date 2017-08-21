@@ -207,9 +207,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PlaceHold" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t3w-kE-2T5">
-                                <rect key="frame" x="270.66666666666669" y="151.66666666666666" width="195" height="30"/>
+                                <rect key="frame" x="270.66666666666669" y="146.66666666666666" width="195" height="35"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="HRT-Jy-fcb"/>
+                                    <constraint firstAttribute="height" constant="35" id="HRT-Jy-fcb"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Medium" family="Avenir" pointSize="30"/>
                                 <color key="textColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
