@@ -21,9 +21,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet var progressBar: UIView!
     @IBOutlet weak var progressLabel: UILabel!
+    @IBOutlet weak var trackerStackView: UIStackView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        iPhoneXConstraints()
         
         NotificationCenter.default.addObserver(self, selector: #selector(nextQuestion), name: NSNotification.Name("modalDismiss"), object: nil)
         importQuestions()
@@ -143,10 +147,18 @@ class ViewController: UIViewController {
 
     }
     
-    
+    func iPhoneXConstraints() {
 
-    
+        if #available(iOS 11, *) {
+            
+            let guide = view.safeAreaLayoutGuide
+            NSLayoutConstraint.activate([
+                trackerStackView.topAnchor.constraint(equalTo: guide.topAnchor, constant: 10)
+                ])
+        
+        }
+    }
+
 }
-
 
 
